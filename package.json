@@ -1,0 +1,23 @@
+{
+  "name": "dynamic_readme",
+  "version": "1.0.0",
+  "description": "CLI app dynamic README.md generator using node and inquirer.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniel-boxall/Dynamic_readme.git"
+  },
+  "keywords": [
+    "Dynamic",
+    "README.md"
+  ],
+  "author": "Daniel Boxall",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daniel-boxall/Dynamic_readme/issues"
+  },
+  "homepage": "https://github.com/daniel-boxall/Dynamic_readme#readme"
+}
