@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "dynamic_readme",
   "version": "1.0.0",
   "description": "CLI app dynamic README.md generator using node and inquirer.js",
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/daniel-boxall/Dynamic_readme/issues"
   },
-  "homepage": "https://github.com/daniel-boxall/Dynamic_readme#readme"
+  "homepage": "https://github.com/daniel-boxall/Dynamic_readme#readme",
+  "dependencies": {
+    "inquirer": "^9.1.4"
+  }
 }

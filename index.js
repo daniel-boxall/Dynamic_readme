@@ -1,0 +1,119 @@
+import fs from "fs";
+import inquirer from 'inquirer';
+
+// array of questions for user
+const questions = [
+    {
+        type: "input",
+        name: "title",
+        message: "What is the title of your project?"
+    },
+    {
+        type: "input",
+        name: "description",
+        message: "What is the description of your project?"
+    },
+    {
+        type: "input",
+        name: "installation",
+        message: "What are the installation instructions for your project?"
+    },
+    {
+        type: "input",
+        name: "usage",
+        message: "What is the usage information for your project?"
+    },
+    {
+        type: "list",
+        name: "license",
+        message: "What license do you want to use for your project?",
+        choices: ["MIT", "Apache 2.0", "GPL 3.0","Boost 1.0","GNU","IGM","Mozilla PL 2.0","WTFPL", "None"]
+    },
+    {
+        type: "input",
+        name: "contribution",
+        message: "What are the contribution guidelines?"
+    },
+    {
+        type: "input",
+        name: "test",
+        message: "How to test run the project?"
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "What is your GitHub username?"
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is your email address?"
+    }
+];
+
+// function to generate lilcenses & badges
+
+const badges = {
+    "MIT": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+    "Apache 2.0": "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)",
+    "GPL 3.0": "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)",
+    "Boost 1.0": "[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)",
+    "GNU": "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)",
+    "IGM": "[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)",
+    "Mozilla PL 2.0": "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)",
+    "WTFPL": "[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)",
+    "None": ""
+};
+
+const generateLicenseBadge = (license) => {return badges[license]};
+
+// function to generate readme content
+const generateReadmeContent = (answers) => {
+    // generate badge
+    const badge = generateLicenseBadge(answers.license);
+    // all content
+    return `
+# ${answers.title}
+    
+${badge}
+## Description
+${answers.description}
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [License](#license)
+- [Questions](#questions)
+## Installation
+${answers.installation}
+## Usage
+${answers.usage}
+## Contributing
+${answers.contribution}
+## Tests
+${answers.test}
+## License
+This project is licensed under the ${answers.license} license.
+## Questions
+If you have any questions, you can contact me via [Email](${answers.email}). You can also visit my GitHub profile at [GitHub](https://github.com/${answers.github}).`
+}
+
+// function to write README file
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => err ? console.log(err) : console.log(`Successfully created README file for your project in current folder!`));
+}
+
+// function to initialize program
+function init() {
+    inquirer.prompt(questions).then((answers) => {
+        // generate
+        const readmeContent = generateReadmeContent(answers);
+        // write to file
+        const fileName = answers.title + ".md"; 
+        writeToFile(fileName, readmeContent);
+    })
+}
+
+// function call to initialize program
+init();
